@@ -38,9 +38,9 @@ class Navbar extends React.Component {
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <Link to="#" className="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Từ vựng</Link>
+                            <Link to="#" className="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ngữ pháp</Link>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <Link to="/grammars/all" className="dropdown-item">Danh sách các từ</Link>
+                                <Link to="/grammars/all" className="dropdown-item">Danh sách ngữ pháp</Link>
                                 <Link to="/grammars/create" className="dropdown-item">Thêm ngữ pháp</Link>
                             </div>
                         </li>
