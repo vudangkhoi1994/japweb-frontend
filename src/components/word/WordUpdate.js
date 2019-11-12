@@ -1,7 +1,6 @@
 import React from 'react'
 import axiosInstance from '../../config/axiosInstance'
 import { Link } from 'react-router-dom'
-import './WordCreate.css'
 import TableRow from '../shared/TableRow'
 import TableRowSelect from '../shared/TableRowSelect'
 
@@ -9,12 +8,7 @@ class WordUpdate extends React.Component {
     constructor() {
         super()
         this.state = {
-            kana: '',
-            kanji: '',
-            meaning: '',
-            audio: '',
-            image: '',
-            type: ''
+            word: ''
         }
         this.getWord = this.getWord.bind(this)
         this.onChangeHandler = this.onChangeHandler.bind(this)
@@ -25,7 +19,9 @@ class WordUpdate extends React.Component {
         const _id = this.props.match.params.id
         axiosInstance.get('/words/' + _id)
             .then((res) => {
-                this.setState(res.data)
+                this.setState({
+                    word: res.data
+                })
             })
             .catch(error => console.log(error))
     }
@@ -36,11 +32,10 @@ class WordUpdate extends React.Component {
 
     onClickSaveHandler(event) {
         event.preventDefault()
-        const {kana, kanji, meaning, audio, image, type} = this.state // filter invalid field
-        const data = {kana, kanji, meaning, audio, image, type}
-        axiosInstance.patch('/words/' + this.props.match.params.id, data)
+        const data = this.state.word
+        axiosInstance.put('/words/' + this.props.match.params.id, data)
         .then((res) => {
-            console.log(res)
+            console.log(res.data)
         }).catch((error) => {
             console.log(error)
         })
@@ -48,10 +43,12 @@ class WordUpdate extends React.Component {
 
     onChangeHandler(event) {
         const { name, value } = event.target
-        this.setState({
-            [name]: value
-        })
-
+        this.setState((prevState) => ({
+            word: {
+                ...prevState.word,
+                [name]: value
+            }
+        }))
     }
 
     render() {
@@ -59,12 +56,13 @@ class WordUpdate extends React.Component {
             <form className="form-group">
                 <table className="table">
                     <tbody>
-                        <TableRow name="kana" label="Từ vựng" onChangeHandler={this.onChangeHandler} value={this.state.kana} />
-                        <TableRow name="kanji" label="Kanji" onChangeHandler={this.onChangeHandler} value={this.state.kanji} />
-                        <TableRow name="meaning" label="Ý nghĩa" onChangeHandler={this.onChangeHandler} value={this.state.meaning} />
-                        <TableRow name="audio" label="Audio" onChangeHandler={this.onChangeHandler} value={this.state.audio} />
-                        <TableRow name="image" label="Hình ảnh" onChangeHandler={this.onChangeHandler} value={this.state.image} />
-                        <TableRowSelect name="type" label="Loại từ" onChangeHandler={this.onChangeHandler} selectValue={this.state.type}
+                        <TableRow name="kana" label="Từ vựng" onChangeHandler={this.onChangeHandler} value={this.state.word.kana} optRequired={true} />
+                        <TableRow name="kanji" label="Kanji" onChangeHandler={this.onChangeHandler} value={this.state.word.kanji} />
+                        <TableRow name="meaning" label="Ý nghĩa" onChangeHandler={this.onChangeHandler} value={this.state.word.meaning} />
+                        <TableRow name="audio" label="Audio" onChangeHandler={this.onChangeHandler} value={this.state.word.audio} />
+                        <TableRow name="image" label="Hình ảnh" onChangeHandler={this.onChangeHandler} value={this.state.word.image} />
+                        <TableRow name="unitid" label="Bài học" onChangeHandler={this.onChangeHandler} value={this.state.word.unitid} />
+                        <TableRowSelect name="type" label="Loại từ" onChangeHandler={this.onChangeHandler} selectValue={this.state.word.type}
                             options={[
                                 {value:"n", label: "Danh từ"},
                                 {value:"v1", label: "Động từ loại 1"},

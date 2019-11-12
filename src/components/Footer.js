@@ -3,8 +3,8 @@ import './Footer.css'
 
 function Footer () {
     return (
-        <footer className="app-footer">
-            <p>footer.com</p>
+        <footer className="app-footer text-center">
+            <h3>footer</h3>
         </footer>
     )
 }

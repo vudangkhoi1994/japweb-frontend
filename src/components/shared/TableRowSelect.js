@@ -1,5 +1,4 @@
 import React from 'react'
-import './TableRowSelect.css'
 
 function TableRowSelect(props) {
     const opts = props.options.map((opt) => {

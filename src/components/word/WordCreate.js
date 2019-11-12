@@ -1,6 +1,5 @@
 import React from 'react'
 import axiosInstance from '../../config/axiosInstance'
-import './WordCreate.css'
 import TableRow from '../shared/TableRow'
 import TableRowSelect from '../shared/TableRowSelect'
 
@@ -24,7 +23,6 @@ class WordCreate extends React.Component {
         this.setState({
             [name]: value
         })
-
     }
 
     onClickSubmitHandler(event) {

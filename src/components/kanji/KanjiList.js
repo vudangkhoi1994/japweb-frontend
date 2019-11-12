@@ -1,35 +1,35 @@
 import React from 'react'
 import axiosInstance from '../../config/axiosInstance'
-import WordListItem from './WordListItem'
+import KanjiListItem from './KanjiListItem'
 
 class WordList extends React.Component {
     constructor() {
         super()
         this.state = {
-            words: []
+            kanjis: []
         }
-        this.deleteWord = this.deleteWord.bind(this)
+        this.deleteKanji = this.deleteKanji.bind(this)
     }
 
-    getWordsList() {
-        axiosInstance.get('/allwords')
+    getKanjiList() {
+        axiosInstance.get('/allkanjis')
             .then((res) => {
                 this.setState({
-                    words: res.data
+                    kanjis: res.data
                 })
             })
             .catch(error => console.log(error))
     }
 
     componentDidMount() {
-        this.getWordsList()
+        this.getKanjiList()
     }
 
-    deleteWord (e,_id) {
+    deleteKanji (e,_id) {
         e.preventDefault()
-        axiosInstance.delete(`/words/${_id}`)
+        axiosInstance.delete(`/kanjis/${_id}`)
         .then((res) => {
-            this.getWordsList()
+            this.getKanjiList()
         })
         .catch((e) => {
             console.log(e)
@@ -38,19 +38,21 @@ class WordList extends React.Component {
     }
 
     render() {
-        const items = this.state.words.map((word) => {
+        const items = this.state.kanjis.map((kanji) => {
             return (
-                <WordListItem key={word._id} word={word} deleteWord={this.deleteWord}/>
+                <KanjiListItem key={kanji._id} kanji={kanji} deleteKanji={this.deleteKanji}/>
             )
         })
         return (
-            <div className="wordd-list">
-                <h3>Danh sach tu</h3>
+            <div className="kanji-list">
+                <h3>Danh sach Kanji</h3>
                 <table className="table">
                     <thead>
                         <tr >
-                            <th>Từ vựng</th>
                             <th>Kanji</th>
+                            <th>Ý nghĩa</th>
+                            <th>Onyomi</th>
+                            <th>Kunyomi</th>        
                             <th>Ngày tạo</th>
                             <th>Chỉnh sửa lần cuối</th>
                             <th className="text-center">Hành động</th>

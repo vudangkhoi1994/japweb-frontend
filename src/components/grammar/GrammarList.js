@@ -1,46 +1,45 @@
 import React from 'react'
 import axiosInstance from '../../config/axiosInstance'
-import WordListItem from './WordListItem'
+import GrammarListItem from './GrammarListItem'
 
 class WordList extends React.Component {
     constructor() {
         super()
         this.state = {
-            words: []
+            grammars: []
         }
-        this.deleteWord = this.deleteWord.bind(this)
+        this.deleteGrammar = this.deleteGrammar.bind(this)
     }
 
-    getWordsList() {
-        axiosInstance.get('/allwords')
+    getGrammarList() {
+        axiosInstance.get('/allgrammars')
             .then((res) => {
                 this.setState({
-                    words: res.data
+                    grammars: res.data
                 })
             })
             .catch(error => console.log(error))
     }
 
     componentDidMount() {
-        this.getWordsList()
+        this.getGrammarList()
     }
 
-    deleteWord (e,_id) {
+    deleteGrammar (e,_id) {
         e.preventDefault()
-        axiosInstance.delete(`/words/${_id}`)
+        axiosInstance.delete(`/grammars/${_id}`)
         .then((res) => {
-            this.getWordsList()
+            this.getGrammarList()
         })
         .catch((e) => {
             console.log(e)
         })
-
     }
 
     render() {
-        const items = this.state.words.map((word) => {
+        const items = this.state.grammars.map((grammar) => {
             return (
-                <WordListItem key={word._id} word={word} deleteWord={this.deleteWord}/>
+                <GrammarListItem key={grammar._id} grammar={grammar} deleteGrammar={this.deleteGrammar}/>
             )
         })
         return (
@@ -49,8 +48,8 @@ class WordList extends React.Component {
                 <table className="table">
                     <thead>
                         <tr >
-                            <th>Từ vựng</th>
-                            <th>Kanji</th>
+                            <th>Ngữ pháp</th>
+                            <th>Cấp độ</th>
                             <th>Ngày tạo</th>
                             <th>Chỉnh sửa lần cuối</th>
                             <th className="text-center">Hành động</th>

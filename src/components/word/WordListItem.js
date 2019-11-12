@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './WordListItem.css'
 
 function WordListItem (props) {
     return (
@@ -21,9 +20,7 @@ function WordListItem (props) {
             </td>
             <td className="text-center">
                 <p className="item-edit" >
-                    {/* <Link to={'/words/delete/'+ props.word._id} onClick={(event) => props.deleteWord(props.word._id)}> xóa </Link> */}
                     <button onClick={(e) => props.deleteWord(e, props.word._id)} className="btn btn-link">xóa</button>
-                    {/* <a href="" onClick={(e) => props.deleteWord(e, props.word._id)}>xóa</a> */}
                 </p>
             </td>
         </tr>
