@@ -5,7 +5,7 @@ function GrammarListItem (props) {
     return (
         <tr className="">
             <td>
-                <Link to={'/grammars/'+ props.grammar._id +'/edit'}>
+                <Link to={'/admin/grammars/'+ props.grammar._id +'/edit'}>
                     {props.grammar.name}
                 </Link>
             </td>

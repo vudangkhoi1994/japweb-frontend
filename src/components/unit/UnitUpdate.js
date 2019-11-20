@@ -1,10 +1,10 @@
 import React from 'react'
-import axiosInstance from '../config/axiosInstance'
+import axiosInstance from '../../config/axiosInstance'
 import { Link } from 'react-router-dom'
 import './UnitUpdate.css'
-import TableRow from './shared/TableRow'
+import TableRow from '../shared/TableRow'
 import UnitItem from './UnitItem'
-import Modal from './shared/Modal'
+import Modal from '../shared/Modal'
 
 class UnitUpdate extends React.Component {
     constructor() {
@@ -24,6 +24,7 @@ class UnitUpdate extends React.Component {
         this.getUnitGrammars = this.getUnitGrammars.bind(this)
         this.renderTab = this.renderTab.bind(this)
         this.getModalItems = this.getModalItems.bind(this)
+        this.onCLickAdd = this.onCLickAdd.bind(this)
     }
 
     getUnit() {
@@ -106,9 +107,17 @@ class UnitUpdate extends React.Component {
 
     onClickDelete(e, uitem) {
         e.preventDefault()
-        uitem.unitid = null
+
+        uitem.unitid = null // clear unitId
+
         const index = this.state.unitItems.findIndex((item) => item._id === uitem._id)
-        axiosInstance.put('/words/' + uitem._id, uitem)
+
+        let dataType = ''
+        if (this.state.currentTab === 0) dataType = 'words'
+        if (this.state.currentTab === 1) dataType = 'kanjis'
+        if (this.state.currentTab === 2) dataType = 'grammars'
+
+        axiosInstance.put(`/${dataType}/${uitem._id}`, uitem)
             .then((res) => {
                 this.setState((prevState) => {
                     unitItems: prevState.unitItems.splice(index, 1)
@@ -116,26 +125,44 @@ class UnitUpdate extends React.Component {
             }).catch((error) => {
                 console.log(error)
             })
-
-        this.renderTab()
     }
 
-    getModalItems () {
-        
+    getModalItems() {
+
         let dataType = ''
         if (this.state.currentTab === 0) dataType = 'words'
         if (this.state.currentTab === 1) dataType = 'kanjis'
         if (this.state.currentTab === 2) dataType = 'grammars'
-        console.log({dataType});
-        
+
         axiosInstance.get(`/all${dataType}`)
             .then(res => {
                 this.setState({
-                    modalItems : res.data
+                    modalItems: res.data
                 })
             })
             .catch(error => {
-                console.log({error});
+                console.log({ error });
+            })
+    }
+
+    onCLickAdd(e, item) {
+        // console.log('working')
+
+        item.unitid = this.props.match.params.id
+
+        let dataType = ''
+        if (this.state.currentTab === 0) dataType = 'words'
+        if (this.state.currentTab === 1) dataType = 'kanjis'
+        if (this.state.currentTab === 2) dataType = 'grammars'
+
+        axiosInstance.put(`/${dataType}/${item._id}`, item)
+            .then((res) => {
+                this.setState((prevState) => {
+                    unitItems: prevState.unitItems.push(item)
+                })
+                // console.log(this.state)
+            }).catch((error) => {
+                console.log(error)
             })
     }
 
@@ -158,11 +185,12 @@ class UnitUpdate extends React.Component {
             items = this.state.unitItems.map((item) => {
                 return (
                     <UnitItem
+                        key={item._id}
                         itemType={'kanjis'}
                         label={item.character}
                         meaning={item.meaning}
                         item={item}
-                    // onClickDelete={this.onClickDelete}
+                        onClickDelete={this.onClickDelete}
                     />
                 )
             })
@@ -170,11 +198,12 @@ class UnitUpdate extends React.Component {
             items = this.state.unitItems.map((item) => {
                 return (
                     <UnitItem
+                        key={item._id}
                         itemType={'grammars'}
                         label={item.name}
                         meaning={item.content}
                         item={item}
-                    // onClick={this.onClickDelete}
+                        onClick={this.onClickDelete}
                     />
                 )
             })
@@ -218,20 +247,20 @@ class UnitUpdate extends React.Component {
                     </li>
                 </ul>
                 <div className="container" >
-                        {this.renderTab()}
+                    {this.renderTab()}
                 </div>
-                <div className="container" style={(this.state.currentTab === '') ? {display: 'none'} : {display: ''}}>
-                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#item-list-modal" onClick={this.getModalItems}>
-                            Thêm mới
+                <div className="container" style={(this.state.currentTab === '') ? { display: 'none' } : { display: '' }}>
+                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#item-list-modal" onClick={this.getModalItems}>
+                        Thêm mới
                         </button>
-                        <Modal 
-                            dataTarget="item-list-modal"
-                            modalTitle="//TODO"
-                            modalItems={this.state.modalItems}
-                            currentTab={this.state.currentTab}
-                            onClickAdd={this.onCLickAdd}
-                        />
-                    </div>
+                    <Modal
+                        dataTarget="item-list-modal"
+                        modalTitle="//TODO"
+                        modalItems={this.state.modalItems}
+                        currentTab={this.state.currentTab}
+                        onClickAdd={this.onCLickAdd}
+                    />
+                </div>
             </div>
         )
     }

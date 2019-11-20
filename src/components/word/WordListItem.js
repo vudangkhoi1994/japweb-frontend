@@ -5,7 +5,7 @@ function WordListItem (props) {
     return (
         <tr className="">
             <td>
-                <Link to={'/words/'+ props.word._id +'/edit'}>
+                <Link to={'/admin/words/'+ props.word._id +'/edit'}>
                     {props.word.kana}
                 </Link>
             </td>

@@ -1,12 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './UnitListItem.css'
 
 function UnitListItem (props) {
     return (
         <tr className="">
             <td>
-                <Link to={'/units/'+ props.unit._id +'/edit'}>
+                <Link to={'/admin/units/'+ props.unit._id +'/edit'}>
                     {props.unit.name}
                 </Link>
             </td>

@@ -1,6 +1,6 @@
 import React from 'react'
 import axiosInstance from '../../config/axiosInstance'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import TableRow from '../shared/TableRow'
 import TableRowSelect from '../shared/TableRowSelect'
 
@@ -8,7 +8,8 @@ class WordUpdate extends React.Component {
     constructor() {
         super()
         this.state = {
-            word: ''
+            word: '',
+            redirect: false
         }
         this.getWord = this.getWord.bind(this)
         this.onChangeHandler = this.onChangeHandler.bind(this)
@@ -35,7 +36,10 @@ class WordUpdate extends React.Component {
         const data = this.state.word
         axiosInstance.put('/words/' + this.props.match.params.id, data)
         .then((res) => {
-            console.log(res.data)
+            // console.log(res.data)
+            this.setState({
+                redirect: true
+            })
         }).catch((error) => {
             console.log(error)
         })
@@ -52,6 +56,9 @@ class WordUpdate extends React.Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to='/admin/words/all'/>
+        }
         return (
             <form className="form-group">
                 <table className="table">
@@ -78,7 +85,7 @@ class WordUpdate extends React.Component {
                 <div className="form-group text-center">
                     <button type="submit" className="btn btn-primary" onClick={this.onClickSaveHandler}>Lưu</button>
                     <button type="submit" className="btn btn-secondary" >
-                        <Link to="/words/all" style={{ color: '#fff' }}>Cancel</Link>
+                        <Link to="/admin/words/all" style={{ color: '#fff' }}>Cancel</Link>
                     </button>
                 </div>
             </form>

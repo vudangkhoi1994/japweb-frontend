@@ -2,21 +2,24 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function Modal(porps) {
+    let data = ''
+    if(porps.currentTab === 0 ) data = {type : 'words', display : 'kana'}
+    if(porps.currentTab === 1 ) data = {type : 'kanjis', display : 'character'}
+    if(porps.currentTab === 2 ) data = {type : 'grammars', display : 'name'}
+
     const itemList = porps.modalItems.map((item) => {
-        if (porps.currentTab === 0 ) {
             return (
                 <div className="form-group row" key={item._id}>
                     <div className="col-sm-10">
-                        <Link to={`/words/${item._id}/edit`}>
-                            {item.kana}
+                        <Link to={`/admin/${data.type}/${item._id}/edit`}>
+                            {item[data.display]}
                         </Link>
                     </div>
                     <div className="col-sm-2 text-center">
-                        <button className="btn btn-link" >&#43;</button>
+                        <button className="btn btn-link" onClick={(e) => porps.onClickAdd(e, item)}>&#43;</button> {/* "&#43;" : "+" */}
                     </div>
                 </div>
             )
-        }
     })
     return (
         <div className="modal fade" id={porps.dataTarget} tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">

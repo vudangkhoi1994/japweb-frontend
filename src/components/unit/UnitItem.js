@@ -6,7 +6,7 @@ function UnitItem (props) {
         <div className="row">
             <div className="col">
                 <Link
-                    to={'/' + props.itemType + '/' + props.item._id + '/edit' }
+                    to={`/admin/${props.itemType}/${props.item._id}/edit`}
                 >
                     {props.label}
                 </Link>

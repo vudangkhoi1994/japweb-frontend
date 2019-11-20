@@ -1,6 +1,5 @@
 import React from 'react'
-import './UnitList.css'
-import axiosInstance from '../config/axiosInstance'
+import axiosInstance from '../../config/axiosInstance'
 import UnitListItem from './UnitListItem'
 
 class WordList extends React.Component {

@@ -1,4 +1,5 @@
 import React from 'react'
+import Route from 'react-router-dom'
 import axiosInstance from '../../config/axiosInstance'
 import TableRow from '../shared/TableRow'
 import TableRowSelect from '../shared/TableRowSelect'
@@ -31,6 +32,7 @@ class WordCreate extends React.Component {
         axiosInstance.post('/words/create', word)
             .then((res) => {
                 console.log(res)
+                // <Route >
             })
             .catch((error) => {
                 console.log(error)

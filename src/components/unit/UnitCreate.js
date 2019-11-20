@@ -1,7 +1,6 @@
 import React from 'react'
-import axiosInstance from '../config/axiosInstance'
-import './UnitCreate.css'
-import TableRow from './shared/TableRow'
+import axiosInstance from '../../config/axiosInstance'
+import TableRow from '../shared/TableRow'
 
 class UnitCreate extends React.Component {
     constructor() {

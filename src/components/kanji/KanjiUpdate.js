@@ -77,7 +77,7 @@ class KanjiUpdate extends React.Component {
                 <div className="form-group text-center">
                     <button type="submit" className="btn btn-primary" onClick={this.onClickSaveHandler}>Lưu</button>
                     <button type="submit" className="btn btn-secondary" >
-                        <Link to="/kanjis/all" style={{ color: '#fff' }}>Cancel</Link>
+                        <Link to="/admin/kanjis/all" style={{ color: '#fff' }}>Cancel</Link>
                     </button>
                 </div>
             </form>
