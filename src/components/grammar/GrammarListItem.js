@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 import { Link } from 'react-router-dom'
 
 function GrammarListItem (props) {
@@ -13,10 +14,10 @@ function GrammarListItem (props) {
                 {props.grammar.level}
             </td>
             <td>
-                {props.grammar.createdAt}
+                {props.grammar.createdAt && moment(props.grammar.createdAt).format('HH:mm:ss DD/MM/YYYY')}
             </td>
             <td>
-                {props.grammar.updatedAt}
+                {props.grammar.updatedAt && moment(props.grammar.updatedAt).format('HH:mm:ss DD/MM/YYYY')}
             </td>
             <td className="text-center">
                 <p className="item-edit" >

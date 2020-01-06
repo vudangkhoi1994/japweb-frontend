@@ -28,7 +28,7 @@ class courseCreate extends React.Component {
 
     onClickSubmitHandler(event) {
         event.preventDefault()
-        console.log(this.state.course);
+        console.log(this.state.course)
 
         const course = this.state.course
         axiosInstance.post('/courses/create', course)
@@ -47,8 +47,6 @@ class courseCreate extends React.Component {
                     <tbody>
                         <TableRow name="name" label="Bài học" onChangeHandler={this.onChangeHandler} type="text" optRequired={true} />
                         <TableRow name="description" label="Mô tả" onChangeHandler={this.onChangeHandler} type="text" />
-                        <TableRow name="video" label="Video" onChangeHandler={this.onChangeHandler} type="text" />
-                        <TableRow name="document" label="Tài liệu" onChangeHandler={this.onChangeHandler} type="text" />
                     </tbody>
                 </table>
                 <div className="form-group text-center">

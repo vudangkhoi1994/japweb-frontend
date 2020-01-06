@@ -45,7 +45,7 @@ class WordList extends React.Component {
         })
         return (
             <div className="kanji-list">
-                <h3>Danh sach Kanji</h3>
+                <h3>Danh sách Kanji</h3>
                 <table className="table">
                     <thead>
                         <tr >

@@ -1,37 +1,35 @@
 import React from 'react'
 import axiosInstance from '../../config/axiosInstance'
-import UnitListItem from './UnitListItem'
+import CourseListItem from './CourseListItem'
 
-class UnitList extends React.Component {
+class CourseList extends React.Component {
     constructor() {
         super()
         this.state = {
-            units: []
+            courses: []
         }
-        // this.deleteGrammar = this.deleteGrammar.bind(this)
+        this.deleteCourse = this.deleteCourse.bind(this)
     }
 
-    getUnitList() {
-        axiosInstance.get('/allunits')
+    getCourseList() {
+        axiosInstance.get('/allcourses')
             .then((res) => {
                 this.setState({
-                    units: res.data
+                    courses: res.data
                 })
             })
             .catch(error => console.log(error))
     }
 
     componentDidMount() {
-        this.getUnitList()
+        this.getCourseList()
     }
 
-    deleteUnit (e,_id) {
-        console.log('Workin!!!');
-        
+    deleteCourse (e,_id) { 
         e.preventDefault()
-        axiosInstance.delete(`/units/${_id}`)
+        axiosInstance.delete(`/courses/${_id}`)
         .then((res) => {
-            this.forceUpdate()
+            this.getCourseList()
         })
         .catch((e) => {
             console.log(e)
@@ -39,18 +37,18 @@ class UnitList extends React.Component {
     }
 
     render() {
-        const items = this.state.units.map((unit) => {
+        const items = this.state.courses.map((course) => {
             return (
-                <UnitListItem key={unit._id} unit={unit} deleteUnit={this.deleteUnit}/>
+                <CourseListItem key={course._id} course={course} deleteUnit={this.deleteCourse}/>
             )
         })
         return (
             <div className="unit-list">
-                <h3>Danh sách bài học</h3>
+                <h3>Danh sách khóa học</h3>
                 <table className="table">
                     <thead>
                         <tr >
-                            <th>Ngữ pháp</th>
+                            <th>Khoá học</th>
                             <th>Mô tả</th>
                             <th>Ngày tạo</th>
                             <th>Chỉnh sửa lần cuối</th>
@@ -66,4 +64,4 @@ class UnitList extends React.Component {
     }
 }
 
-export default UnitList
+export default CourseList

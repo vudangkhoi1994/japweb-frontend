@@ -44,7 +44,7 @@ class WordList extends React.Component {
         })
         return (
             <div className="wordd-list">
-                <h3>Danh sach tu</h3>
+                <h3>Danh sách ngữ pháp</h3>
                 <table className="table">
                     <thead>
                         <tr >

@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 import { Link } from 'react-router-dom'
 
 function WordListItem (props) {
@@ -13,10 +14,10 @@ function WordListItem (props) {
                 {props.word.kanji}
             </td>
             <td>
-                {props.word.createdAt}
+                {props.word.createdAt && moment(props.word.createdAt).format('HH:mm:ss DD/MM/YYYY')}
             </td>
             <td>
-                {props.word.updatedAt}
+                {props.word.updatedAt && moment(props.word.updatedAt).format('HH:mm:ss DD/MM/YYYY')}
             </td>
             <td className="text-center">
                 <p className="item-edit" >

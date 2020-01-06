@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 
 function Modal(porps) {
     let data = ''
-    if(porps.currentTab === 0 ) data = {type : 'words', display : 'kana'}
-    if(porps.currentTab === 1 ) data = {type : 'kanjis', display : 'character'}
-    if(porps.currentTab === 2 ) data = {type : 'grammars', display : 'name'}
+    if(porps.currentTab === 0 ) data = {type : 'words', display : 'kana', title :'Danh sách từ'}
+    if(porps.currentTab === 1 ) data = {type : 'kanjis', display : 'character', title :'Danh sách kanji'}
+    if(porps.currentTab === 2 ) data = {type : 'grammars', display : 'name', title :'Danh sách ngữ pháp'}
 
     const itemList = porps.modalItems.map((item) => {
             return (
@@ -26,7 +26,7 @@ function Modal(porps) {
             <div className="modal-dialog modal-dialog-scrollable" role="document">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="modal-title">{porps.modalTitle}</h5>
+                        <h5 className="modal-title" id="modal-title">{data.title}</h5>
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

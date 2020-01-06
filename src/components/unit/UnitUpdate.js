@@ -45,7 +45,7 @@ class UnitUpdate extends React.Component {
     onClickSaveHandler(event) {
         event.preventDefault()
         const data = this.state.unit
-        axiosInstance.patch('/units/' + this.props.match.params.id, data)
+        axiosInstance.put('/units/' + this.props.match.params.id, data)
             .then((res) => {
                 console.log(res.data)
             }).catch((error) => {
@@ -203,22 +203,22 @@ class UnitUpdate extends React.Component {
                         label={item.name}
                         meaning={item.content}
                         item={item}
-                        onClick={this.onClickDelete}
+                        onClickDelete={this.onClickDelete}
                     />
                 )
             })
         }
-
         return (items)
     }
 
     render() {
         return (
             <div>
+                <h3>Thông tin bài học</h3>
                 <form className="form-group">
                     <table className="table">
                         <tbody>
-                            <TableRow name="name" label="Ngữ pháp" onChangeHandler={this.onChangeHandler} value={this.state.unit.name} optRequired={true} />
+                            <TableRow name="name" label="Tên" onChangeHandler={this.onChangeHandler} value={this.state.unit.name} optRequired={true} />
                             <TableRow name="description" label="Mô tả" onChangeHandler={this.onChangeHandler} value={this.state.unit.description} />
                             <TableRow name="video" label="Video" onChangeHandler={this.onChangeHandler} value={this.state.unit.video} />
                             <TableRow name="document" label="Tài liệu" onChangeHandler={this.onChangeHandler} value={this.state.unit.document} />
@@ -229,33 +229,32 @@ class UnitUpdate extends React.Component {
                     <div className="form-group text-center">
                         <button type="submit" className="btn btn-primary" onClick={this.onClickSaveHandler}>Lưu</button>
                         <button type="submit" className="btn btn-secondary" >
-                            <Link to="/units/all" style={{ color: '#fff' }}>Cancel</Link>
+                            <Link to="/units/all" style={{ color: '#fff' }}>Hủy bỏ</Link>
                         </button>
                     </div>
                 </form>
                 <hr />
-                <h3>Section #2</h3>
+                <h3>Tóm tắt bài học</h3>
                 <ul className="nav nav-tabs nav-justified">
                     <li className="nav-item">
-                        <Link to="#" className={this.setState.currentTab === 0 ? 'nav-link active' : 'nav-link'} onClick={this.getUnitWords}>Tu vung</Link>
+                        <Link to="#" className={this.setState.currentTab === 0 ? 'nav-link active' : 'nav-link'} onClick={this.getUnitWords}>Từ vựng</Link>
                     </li>
                     <li className="nav-item">
                         <Link to="#" className={this.setState.currentTab === 1 ? 'nav-link active' : 'nav-link'} onClick={this.getUnitKanjis}>Kanji</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="#" className={this.setState.currentTab === 2 ? 'nav-link active' : 'nav-link'} onClick={this.getUnitGrammars}>Ngu Phap</Link>
+                        <Link to="#" className={this.setState.currentTab === 2 ? 'nav-link active' : 'nav-link'} onClick={this.getUnitGrammars}>Ngữ pháp</Link>
                     </li>
                 </ul>
                 <div className="container" >
                     {this.renderTab()}
                 </div>
-                <div className="container" style={(this.state.currentTab === '') ? { display: 'none' } : { display: '' }}>
+                <div className="container btn-add-wrapper" style={(this.state.currentTab === '') ? { display: 'none' } : { display: '' }}>
                     <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#item-list-modal" onClick={this.getModalItems}>
                         Thêm mới
                         </button>
                     <Modal
                         dataTarget="item-list-modal"
-                        modalTitle="//TODO"
                         modalItems={this.state.modalItems}
                         currentTab={this.state.currentTab}
                         onClickAdd={this.onCLickAdd}

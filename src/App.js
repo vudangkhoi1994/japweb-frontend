@@ -15,10 +15,17 @@ import GrammarUpdate from './components/grammar/GrammarUpdate'
 import UnitList from './components/unit/UnitList'
 import UnitCreate from './components/unit/UnitCreate'
 import UnitUpdate from './components/unit/UnitUpdate'
-
+import CourseList from './components/course/CourseList'
+import CourseCreate from './components/course/CourseCreate'
+import CourseUpdate from './components/course/CourseUpdate'
+import UnitView from './components/unit/UnitView'
+import CourseView from './components/course/CourseView'
+import CourseViewList from './components/course/CourseViewList'
+import Login from './components/user/Login'
+import Register from './components/user/Register'
 
 class App extends React.Component {
-  render() {
+  render() {     
     return (
       <Router>
         <div className="container">
@@ -38,8 +45,17 @@ class App extends React.Component {
         <Route path="/admin/units/all" exact component={UnitList} />
         <Route path="/admin/units/create" exact component={UnitCreate} />
         <Route path="/admin/units/:id/edit" exact component={UnitUpdate} />
+        
+        <Route path="/admin/courses/all" exact component={CourseList} />
+        <Route path="/admin/courses/create" exact component={CourseCreate} />
+        <Route path="/admin/courses/:id/edit" exact component={CourseUpdate} />
 
-        <Footer />
+        <Route path="/units/:id" exact component={UnitView} />
+        <Route path="/courses/:id" exact component={CourseView} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/" exact component={CourseViewList} />
+
       </div>
       </Router>
     )
